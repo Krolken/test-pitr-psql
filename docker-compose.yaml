@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+  postgres:
+    image: postgres:11
+    ports:
+      - 5430:5432
+    command: postgres -c config_file=/opt/config/postgres.conf
+    environment:
+      - POSTGRES_USER=testuser
+      - POSTGRES_PASSWORD=testpass
+      - POSTGRES_INITDB_WALDIR=/opt/waldir
+      - PGDATA=/opt/pgdata
+
+    volumes:
+    - ./waldir:/opt/waldir
+    - ./waldir_archive:/opt/waldir_archive
+    - ./pgbackup:/opt/pgbackup
+    - ./pgdata:/opt/pgdata
+    - ./config:/opt/config
+    - ./restore:/opt/restore
